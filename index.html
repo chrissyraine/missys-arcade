@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Missy's Arcade Restaurant — Titusville, PA</title>
+<meta name="description" content="Classic diner in Titusville, PA. Legendary breakfast, homemade pies, Friday fish fry, and 25 years of down-home cooking. 116 Diamond Street.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #1a0a0a;
+  --card:     #241212;
+  --pink:     #e8758a;
+  --pink-soft:#f4b8c4;
+  --neon-red: #ff3b3b;
+  --gold:     #d4a843;
+  --cream:    #faf0e6;
+  --text:     #faf0e6;
+  --muted:    #b89a8a;
+  --border:   rgba(212,168,67,0.2);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(26,10,10,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo { font-family: 'Pacifico', cursive; font-size: 1.4rem; color: var(--pink); }
+.nav-links { display: flex; gap: 24px; }
+.nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+.nav-links a:hover { color: var(--pink); }
+.nav-cta {
+  padding: 8px 20px; border: 1px solid var(--pink); color: var(--pink);
+  font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  text-decoration: none; transition: all 0.2s;
+}
+.nav-cta:hover { background: var(--pink); color: var(--bg); }
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+}
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: url('images/storefront.jpg') center/cover no-repeat;
+  opacity: 0.35;
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(26,10,10,0.6) 0%, rgba(26,10,10,0.95) 100%);
+}
+.hero-content { position: relative; z-index: 2; padding: 80px 24px; }
+.hero-logo { max-width: 340px; width: 80%; margin: 0 auto 24px; }
+.hero-tagline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  font-weight: 400; font-style: italic;
+  color: var(--pink-soft);
+  margin-bottom: 12px;
+}
+.hero-sub {
+  font-size: 15px; color: var(--muted);
+  max-width: 460px; margin: 0 auto 32px;
+  line-height: 1.8;
+}
+.hero-badges { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 32px; }
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border: 1px solid var(--border);
+  font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gold);
+}
+.hero-ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn-primary {
+  padding: 14px 32px; background: var(--pink); color: var(--bg);
+  font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  text-decoration: none; border: none; cursor: pointer; transition: background 0.2s;
+}
+.btn-primary:hover { background: var(--pink-soft); }
+.btn-ghost {
+  padding: 14px 32px; border: 1px solid rgba(250,240,230,0.3); color: var(--cream);
+  font-size: 13px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+  text-decoration: none; transition: all 0.2s;
+}
+.btn-ghost:hover { border-color: var(--pink); color: var(--pink); }
+
+/* ── SECTIONS ── */
+section { padding: 80px 0; }
+.section-alt { background: var(--card); }
+.eyebrow {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--pink); margin-bottom: 12px;
+}
+.rule { width: 48px; height: 1px; background: var(--gold); margin: 0 auto 16px; }
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 400; margin-bottom: 20px;
+}
+.section-title em { color: var(--pink); font-style: italic; }
+.section-sub { font-size: 15px; color: var(--muted); max-width: 520px; margin: 0 auto; line-height: 1.85; }
+.text-center { text-align: center; }
+
+/* ── ABOUT ── */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; margin-top: 48px; }
+.about-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; opacity: 0.85; }
+.about-text p { font-size: 15px; color: var(--muted); line-height: 1.85; margin-bottom: 16px; }
+.about-text .highlight { color: var(--cream); font-weight: 500; }
+.about-quote {
+  margin-top: 24px; padding-left: 20px;
+  border-left: 2px solid var(--pink);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem; font-style: italic;
+  color: var(--pink-soft); line-height: 1.6;
+}
+@media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; } }
+
+/* ── HIGHLIGHTS (not full menu) ── */
+.highlights-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+.highlight-card {
+  background: var(--bg); border: 1px solid var(--border);
+  padding: 32px 24px; text-align: center;
+}
+.highlight-card .icon { font-size: 2rem; margin-bottom: 16px; }
+.highlight-card h3 {
+  font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 400;
+  color: var(--cream); margin-bottom: 8px;
+}
+.highlight-card p { font-size: 13px; color: var(--muted); line-height: 1.7; }
+@media (max-width: 640px) { .highlights-grid { grid-template-columns: 1fr; } }
+
+/* ── FEATURE BANNER ── */
+.feature-banner {
+  background: linear-gradient(135deg, #2a0a0a 0%, #1a0a0a 100%);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 48px 24px;
+  text-align: center;
+}
+.feature-banner .badge-big {
+  display: inline-block; padding: 8px 20px;
+  border: 1px solid var(--gold); color: var(--gold);
+  font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.feature-banner h3 {
+  font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 400;
+  color: var(--cream); margin-bottom: 8px;
+}
+.feature-banner p { font-size: 14px; color: var(--muted); }
+
+/* ── HOURS / LOCATION ── */
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 48px; }
+.info-block h3 {
+  font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 400;
+  color: var(--cream); margin-bottom: 16px;
+}
+.info-block p { font-size: 15px; color: var(--muted); line-height: 2; }
+.info-block a { color: var(--pink); text-decoration: none; }
+.info-block a:hover { text-decoration: underline; }
+@media (max-width: 640px) { .info-grid { grid-template-columns: 1fr; } }
+
+/* ── CTA ── */
+.final-cta {
+  padding: 80px 24px; text-align: center;
+  background: linear-gradient(to bottom, var(--card) 0%, var(--bg) 100%);
+}
+.final-cta h2 {
+  font-family: 'Pacifico', cursive; font-size: clamp(1.8rem, 5vw, 3rem);
+  color: var(--pink); margin-bottom: 12px;
+}
+.final-cta p { font-size: 15px; color: var(--muted); margin-bottom: 32px; max-width: 400px; margin-left: auto; margin-right: auto; }
+
+/* ── FOOTER ── */
+footer {
+  padding: 32px 24px; text-align: center;
+  border-top: 1px solid var(--border);
+  font-size: 12px; color: var(--muted); letter-spacing: 0.05em;
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">Missy's Arcade</span>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#menu">Menu</a>
+    <a href="#visit">Visit</a>
+  </div>
+  <a href="tel:8148278110" class="nav-cta">Call Now</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <img src="images/logo.png" alt="Missy's Arcade Restaurant" class="hero-logo">
+    <p class="hero-tagline">A Titusville Tradition Since 2001</p>
+    <p class="hero-sub">Classic diner fare, homemade pies, and the kind of breakfast that keeps 'em coming back. Right here on Diamond Street.</p>
+    <div class="hero-badges">
+      <span class="badge">🏆 Featured on America's Best Restaurants</span>
+      <span class="badge">🎂 Celebrating 25 Years</span>
+    </div>
+    <div class="hero-ctas">
+      <a href="tel:8148278110" class="btn-primary">Call to Order</a>
+      <a href="#menu" class="btn-ghost">See the Menu</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section-alt">
+  <div class="container">
+    <div class="text-center">
+      <p class="eyebrow">Our Story</p>
+      <div class="rule"></div>
+      <h2 class="section-title">More Than a <em>Diner</em></h2>
+    </div>
+    <div class="about-grid reveal">
+      <img src="images/owner.jpg" alt="Missy Wescoat, owner of Missy's Arcade Restaurant" class="about-img" style="object-position: top;">
+      <div class="about-text">
+        <p class="highlight">For 25 years, Missy's Arcade Restaurant has been the heartbeat of Titusville — the kind of place where your coffee cup never runs empty and your waitress remembers your name.</p>
+        <p>Owner Missy Wescoat opened the doors on March 5, 2001, and hasn't slowed down since. The walls are lined with Coca-Cola memorabilia, vintage neon, and enough nostalgia to make you forget what century it is. The signature pink interior? That's all Missy.</p>
+        <p>In 2018, a basement fire nearly took everything. Nine fire departments saved the block, and Missy rebuilt — every pink wall, every Coke sign, every booth. Because Titusville needed its bright spot back.</p>
+        <div class="about-quote">
+          "We may look full, but tables turn over fast. We're worth the wait."
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU HIGHLIGHTS -->
+<section id="menu">
+  <div class="container">
+    <div class="text-center">
+      <p class="eyebrow">What We're Known For</p>
+      <div class="rule"></div>
+      <h2 class="section-title">The <em>Good Stuff</em></h2>
+      <p class="section-sub">Our menu changes with the seasons, but these are the things people drive across town for.</p>
+    </div>
+    <div class="highlights-grid reveal">
+      <div class="highlight-card">
+        <div class="icon">🥞</div>
+        <h3>Legendary Breakfast</h3>
+        <p>Pancakes, omelets, stack-it-up platters, and more. Served every morning starting at 6 AM. Too many favorites to list — just add a pancake.</p>
+      </div>
+      <div class="highlight-card">
+        <div class="icon">🥧</div>
+        <h3>Homemade Pies</h3>
+        <p>Baked fresh. The kind your grandma used to make. Get a slice with ice cream or take a whole pie home — if there's any left.</p>
+      </div>
+      <div class="highlight-card">
+        <div class="icon">🐟</div>
+        <h3>Friday Fish Fry</h3>
+        <p>Fish sandwiches and full fish dinners every Friday. A Titusville tradition. Get here early — they go fast.</p>
+      </div>
+      <div class="highlight-card">
+        <div class="icon">🍔</div>
+        <h3>Burgers & Melts</h3>
+        <p>Handmade burgers, patty melts, and Missy's Monster Burger. Served with chips or add fries and coleslaw for the full experience.</p>
+      </div>
+      <div class="highlight-card">
+        <div class="icon">🍲</div>
+        <h3>Homemade Soups</h3>
+        <p>Made from scratch, changes daily. Grab a cup or a bowl — or pair it with a half sandwich for the perfect lunch.</p>
+      </div>
+      <div class="highlight-card">
+        <div class="icon">👧</div>
+        <h3>Kiddy Plates</h3>
+        <p>Hotdog, grilled cheese, or chicken strip — served with fries. Because the little ones deserve a seat at the counter too.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE: AMERICA'S BEST -->
+<div class="feature-banner reveal">
+  <span class="badge-big">As Seen On</span>
+  <h3>America's Best Restaurants</h3>
+  <p>In August 2024, the ABR Roadshow came to Titusville to feature Missy's — putting this little pink diner on the national map.</p>
+</div>
+
+<!-- VISIT -->
+<section id="visit" class="section-alt">
+  <div class="container">
+    <div class="text-center">
+      <p class="eyebrow">Come See Us</p>
+      <div class="rule"></div>
+      <h2 class="section-title">Find <em>Your Booth</em></h2>
+    </div>
+    <div class="info-grid reveal">
+      <div class="info-block">
+        <h3>Hours</h3>
+        <p>
+          Monday – Sunday<br>
+          6:00 AM – Open for Breakfast & Lunch<br><br>
+          <em style="color:var(--pink-soft); font-size:13px;">Hours may vary — give us a call to check!</em>
+        </p>
+      </div>
+      <div class="info-block">
+        <h3>Location & Contact</h3>
+        <p>
+          116 Diamond Street<br>
+          Titusville, PA 16354<br><br>
+          Phone: <a href="tel:8148278110">(814) 827-8110</a><br><br>
+          <em style="color:var(--muted); font-size:13px;">Street parking available. Look for the neon signs — you can't miss us.</em>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<div class="final-cta">
+  <h2>Come Hungry.</h2>
+  <p>Whether it's your first visit or your thousandth, there's always a seat and a smile waiting for you.</p>
+  <a href="tel:8148278110" class="btn-primary">Call (814) 827-8110</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  &copy; 2026 Missy's Arcade Restaurant &middot; 116 Diamond Street, Titusville, PA 16354 &middot; Site by <a href="https://foreverstillstudio.com" style="color:var(--gold); text-decoration:none;">Forever Still Studio</a>
+</footer>
+
+<script>
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+}, { threshold: 0.15 });
+reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
