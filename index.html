@@ -198,6 +198,34 @@ section { padding: 80px 0; }
 @media (max-width: 768px) { .businesses-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 640px) { .businesses-grid { grid-template-columns: 1fr; } }
 
+/* ── PRESS ── */
+.press-card {
+  background: var(--card); border: 1px solid var(--border);
+  padding: 40px; max-width: 700px; margin: 0 auto;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.press-card:hover {
+  border-color: rgba(232,117,138,0.4);
+  box-shadow: 0 0 20px rgba(232,117,138,0.1);
+}
+.press-meta {
+  font-size: 12px; color: var(--gold); font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; margin-bottom: 16px;
+}
+.press-headline {
+  font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 400;
+  color: var(--cream); margin-bottom: 16px; line-height: 1.4;
+}
+.press-quote {
+  padding: 20px 24px; border-left: 3px solid var(--pink);
+  background: rgba(232,117,138,0.08); font-style: italic;
+  color: var(--pink-soft); font-size: 14px; line-height: 1.8;
+  margin: 20px 0;
+}
+.press-attribution {
+  font-size: 13px; color: var(--muted); margin-top: 20px;
+}
+
 /* ── FEATURE BANNER ── */
 .feature-banner {
   background: linear-gradient(135deg, #2a0a0a 0%, #1a0a0a 100%);
@@ -301,10 +329,12 @@ footer {
       <img src="images/owner.jpg" alt="Missy Wescoat, owner of Missy's Arcade Restaurant" class="about-img" style="object-position: top;">
       <div class="about-text">
         <p class="highlight">For 25 years, Missy's Arcade Restaurant has been the heartbeat of Titusville — the kind of place where your coffee cup never runs empty and your waitress remembers your name.</p>
-        <p>Owner Missy Wescoat opened the doors on March 5, 2001, and hasn't slowed down since. The walls are lined with Coca-Cola memorabilia, vintage neon, and enough nostalgia to make you forget what century it is. The signature pink interior? That's all Missy.</p>
+        <p>Born and raised in Titusville, owner Missy Wescoat opened the doors on March 5, 2001, at just 29 years old. She brought her restaurant roots with her — starting her career at a small lunch counter called The Skillet inside True Value Hardware. What she built at Missy's Arcade is something bigger than just a diner. It's a gathering place where people from every walk of life mesh together like family.</p>
+        <p>The walls are lined with Coca-Cola memorabilia, vintage neon, and enough nostalgia to make you forget what century it is. Bright paint colors. Fun sayings like "Mind your own biscuits and life will be gravy." The signature pink interior? That's all Missy, reflected in everything she's built.</p>
         <p>In 2018, a basement fire nearly took everything. Nine fire departments saved the block, and Missy rebuilt — every pink wall, every Coke sign, every booth. Because Titusville needed its bright spot back.</p>
+        <p>Missy raised two boys here at Missy's Arcade — watched them grow up in the booths, around the counter, surrounded by community. It's a legacy in progress. The restaurant isn't just her life's work; it's her family's life.</p>
         <div class="about-quote">
-          "We may look full, but tables turn over fast. We're worth the wait."
+          "What I love most about the diner vibe is that it's people from every walk of life, they all mesh together. These people are truly my family. That's how it's been my whole life."
         </div>
       </div>
     </div>
@@ -390,6 +420,28 @@ footer {
       </div>
     </div>
     <p style="text-align: center; font-size: 14px; color: var(--muted); margin-top: 32px;">Every booth tells a story. Every tabletop supports a neighbor. That's what Missy's is all about.</p>
+  </div>
+</section>
+
+<!-- PRESS -->
+<section>
+  <div class="container">
+    <div class="text-center" style="margin-bottom: 48px;">
+      <p class="eyebrow">Making Headlines</p>
+      <div class="rule"></div>
+      <h2 class="section-title">In the <em>News</em></h2>
+    </div>
+    <div class="press-card reveal">
+      <div class="press-meta">Titusville News Journal • Mar 6, 2026</div>
+      <h3 class="press-headline">Missy's Arcade Restaurant Celebrates 25th Anniversary</h3>
+      <p style="color: var(--muted); font-size: 14px; margin-bottom: 16px;"><strong>By Rebecca Hazen, Managing Editor</strong></p>
+      <div class="press-quote">
+        "I was born and raised in Titusville. It's an amazing community. I love Titusville. I started on March 5, 2001. I was only 29 then. I was a youngin'." — Missy Wescoat, Owner
+      </div>
+      <p style="color: var(--muted); font-size: 14px; line-height: 1.8;">
+        Walk into Missy's Arcade Restaurant, and it feels like stepping back into time. Diners are met with bright paint colors and old signs dotting the walls, featuring old advertisement posters from Coca-Cola and fun sayings. What Missy loves most about the diner vibe is that it's people from every walk of life who mesh together. "These people are truly my family. That's how it's been my whole life."
+      </p>
+    </div>
   </div>
 </section>
 
