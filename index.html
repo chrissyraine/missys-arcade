@@ -162,6 +162,42 @@ section { padding: 80px 0; }
 .highlight-card p { font-size: 13px; color: var(--muted); line-height: 1.7; }
 @media (max-width: 640px) { .highlights-grid { grid-template-columns: 1fr; } }
 
+/* ── GALLERY ── */
+.gallery-container { position: relative; width: 100%; aspect-ratio: 1/1; max-width: 600px; margin: 48px auto 0; overflow: hidden; border: 1px solid var(--border); }
+.gallery-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.8s ease-in-out; }
+.gallery-slide img { width: 100%; height: 100%; object-fit: cover; }
+.gallery-slide.active { opacity: 1; }
+.gallery-nav { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 10; }
+.gallery-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(250,240,230,0.3); cursor: pointer; transition: background 0.3s; }
+.gallery-dot.active { background: var(--pink); }
+.gallery-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+  background: rgba(26,10,10,0.8); border: 1px solid var(--border); color: var(--pink);
+  cursor: pointer; font-size: 18px; transition: all 0.2s; z-index: 10;
+}
+.gallery-arrow:hover { background: rgba(26,10,10,0.95); color: var(--pink-soft); }
+.gallery-arrow.prev { left: 12px; }
+.gallery-arrow.next { right: 12px; }
+
+/* ── BUSINESSES/TABLETOPS ── */
+.businesses-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+.business-card {
+  position: relative; aspect-ratio: 1/1; overflow: hidden;
+  border: 1px solid var(--border); transition: all 0.3s;
+}
+.business-card img { width: 100%; height: 100%; object-fit: cover; }
+.business-card-overlay {
+  position: absolute; inset: 0; background: linear-gradient(135deg, rgba(26,10,10,0.7) 0%, rgba(26,10,10,0.95) 100%);
+  opacity: 0; transition: opacity 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  color: var(--text); text-align: center;
+}
+.business-card:hover { border-color: rgba(232,117,138,0.4); box-shadow: 0 0 20px rgba(232,117,138,0.1); }
+.business-card:hover .business-card-overlay { opacity: 1; }
+.business-card-name { font-family: 'Playfair Display', serif; font-size: 1rem; margin-bottom: 6px; }
+@media (max-width: 768px) { .businesses-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .businesses-grid { grid-template-columns: 1fr; } }
+
 /* ── FEATURE BANNER ── */
 .feature-banner {
   background: linear-gradient(135deg, #2a0a0a 0%, #1a0a0a 100%);
@@ -275,47 +311,85 @@ footer {
   </div>
 </section>
 
-<!-- MENU HIGHLIGHTS -->
+<!-- GALLERY -->
 <section id="menu">
   <div class="container">
     <div class="text-center">
-      <p class="eyebrow">What We're Known For</p>
+      <p class="eyebrow">Come For the Food</p>
       <div class="rule"></div>
       <h2 class="section-title">The <em>Good Stuff</em></h2>
-      <p class="section-sub">Our menu changes with the seasons, but these are the things people drive across town for.</p>
     </div>
-    <div class="highlights-grid reveal">
-      <div class="highlight-card">
-        <div class="icon">🥞</div>
-        <h3>Legendary Breakfast</h3>
-        <p>Pancakes, omelets, stack-it-up platters, and more. Served every morning starting at 6 AM. Too many favorites to list — just add a pancake.</p>
+
+    <div class="gallery-container reveal">
+      <div class="gallery-slide active">
+        <img src="images/hotdog.jpg" alt="Classic hotdog">
       </div>
-      <div class="highlight-card">
-        <div class="icon">🥧</div>
-        <h3>Homemade Pies</h3>
-        <p>Baked fresh. The kind your grandma used to make. Get a slice with ice cream or take a whole pie home — if there's any left.</p>
+      <div class="gallery-slide">
+        <img src="images/grlchz.jpg" alt="Grilled cheese">
       </div>
-      <div class="highlight-card">
-        <div class="icon">🐟</div>
-        <h3>Friday Fish Fry</h3>
-        <p>Fish sandwiches and full fish dinners every Friday. A Titusville tradition. Get here early — they go fast.</p>
+      <div class="gallery-slide">
+        <img src="images/meatballsub.jpg" alt="Meatball sub">
       </div>
-      <div class="highlight-card">
-        <div class="icon">🍔</div>
-        <h3>Burgers & Melts</h3>
-        <p>Handmade burgers, patty melts, and Missy's Monster Burger. Served with chips or add fries and coleslaw for the full experience.</p>
+      <div class="gallery-slide">
+        <img src="images/dessert.jpg" alt="Dessert display">
       </div>
-      <div class="highlight-card">
-        <div class="icon">🍲</div>
-        <h3>Homemade Soups</h3>
-        <p>Made from scratch, changes daily. Grab a cup or a bowl — or pair it with a half sandwich for the perfect lunch.</p>
+      <div class="gallery-slide">
+        <img src="images/bar.jpg" alt="Restaurant bar">
       </div>
-      <div class="highlight-card">
-        <div class="icon">👧</div>
-        <h3>Kiddy Plates</h3>
-        <p>Hotdog, grilled cheese, or chicken strip — served with fries. Because the little ones deserve a seat at the counter too.</p>
+      <div class="gallery-slide">
+        <img src="images/diningroom.jpg" alt="Dining room">
+      </div>
+      <button class="gallery-arrow prev" onclick="prevSlide()">❮</button>
+      <button class="gallery-arrow next" onclick="nextSlide()">❯</button>
+      <div class="gallery-nav">
+        <span class="gallery-dot active" onclick="currentSlide(0)"></span>
+        <span class="gallery-dot" onclick="currentSlide(1)"></span>
+        <span class="gallery-dot" onclick="currentSlide(2)"></span>
+        <span class="gallery-dot" onclick="currentSlide(3)"></span>
+        <span class="gallery-dot" onclick="currentSlide(4)"></span>
+        <span class="gallery-dot" onclick="currentSlide(5)"></span>
       </div>
     </div>
+
+    <div class="text-center" style="margin-top: 48px;">
+      <h3 style="font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--cream); margin-bottom: 12px;">Our Menu</h3>
+      <p style="color: var(--muted); margin-bottom: 24px;">Our menu features daily specials and seasonal favorites. From classic breakfast to homemade pies, there's something for everyone.</p>
+    </div>
+
+    <img src="images/menu.jpg" alt="Missy's Arcade Menu" style="width: 100%; max-width: 500px; display: block; margin: 0 auto; border: 1px solid var(--border);" class="reveal">
+  </div>
+</section>
+
+<!-- LOCAL BUSINESSES & TABLETOPS -->
+<section class="section-alt">
+  <div class="container">
+    <div class="text-center">
+      <p class="eyebrow">Community Heart</p>
+      <div class="rule"></div>
+      <h2 class="section-title">Supporting <em>Local</em></h2>
+      <p class="section-sub">Missy's Arcade isn't just about great food — it's about building community. Our custom tabletops celebrate local Titusville businesses and artists.</p>
+    </div>
+    <div class="businesses-grid reveal">
+      <div class="business-card">
+        <img src="images/tbaletop1.jpg" alt="Local business tabletop">
+        <div class="business-card-overlay">
+          <p class="business-card-name">Local Pride</p>
+        </div>
+      </div>
+      <div class="business-card">
+        <img src="images/tabletop2.jpg" alt="Local business tabletop">
+        <div class="business-card-overlay">
+          <p class="business-card-name">Titusville Spirit</p>
+        </div>
+      </div>
+      <div class="business-card">
+        <img src="images/tabletop3.jpg" alt="Local business tabletop">
+        <div class="business-card-overlay">
+          <p class="business-card-name">Community Built</p>
+        </div>
+      </div>
+    </div>
+    <p style="text-align: center; font-size: 14px; color: var(--muted); margin-top: 32px;">Every booth tells a story. Every tabletop supports a neighbor. That's what Missy's is all about.</p>
   </div>
 </section>
 
@@ -375,6 +449,37 @@ const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
 }, { threshold: 0.15 });
 reveals.forEach(el => observer.observe(el));
+
+// Gallery carousel
+let currentIndex = 0;
+const slides = document.querySelectorAll('.gallery-slide');
+const dots = document.querySelectorAll('.gallery-dot');
+const totalSlides = slides.length;
+
+function showSlide(n) {
+  slides.forEach(slide => slide.classList.remove('active'));
+  dots.forEach(dot => dot.classList.remove('active'));
+  slides[n].classList.add('active');
+  dots[n].classList.add('active');
+}
+
+function nextSlide() {
+  currentIndex = (currentIndex + 1) % totalSlides;
+  showSlide(currentIndex);
+}
+
+function prevSlide() {
+  currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+  showSlide(currentIndex);
+}
+
+function currentSlide(n) {
+  currentIndex = n;
+  showSlide(currentIndex);
+}
+
+// Auto-advance gallery every 5 seconds
+setInterval(nextSlide, 5000);
 </script>
 </body>
 </html>
