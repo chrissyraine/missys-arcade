@@ -361,6 +361,131 @@ footer {
   height: 16px;
   fill: currentColor;
 }
+
+/* ── MENU TABS ── */
+.menu-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.menu-tabs {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+
+.menu-tab {
+  padding: 14px 32px;
+  background: transparent;
+  border: 2px solid var(--gold);
+  color: var(--gold);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.menu-tab:hover {
+  background: rgba(212, 168, 67, 0.1);
+  box-shadow: 0 0 20px rgba(212, 168, 67, 0.3);
+  transform: translateY(-2px);
+}
+
+.menu-tab.active {
+  background: var(--gold);
+  color: var(--bg);
+  box-shadow: 0 6px 24px rgba(212, 168, 67, 0.4), 0 0 30px rgba(212, 168, 67, 0.2);
+}
+
+.menu-content {
+  display: none;
+  animation: fadeIn 0.5s ease;
+}
+
+.menu-content.active {
+  display: block;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 48px;
+  margin-bottom: 48px;
+}
+
+.menu-section {
+  border-left: 3px solid var(--gold);
+  padding-left: 24px;
+}
+
+.menu-section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--cream);
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.menu-item {
+  margin-bottom: 24px;
+}
+
+.menu-item-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+  gap: 16px;
+}
+
+.menu-item-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--cream);
+  letter-spacing: 0.02em;
+}
+
+.menu-item-price {
+  color: var(--gold);
+  font-weight: 600;
+  white-space: nowrap;
+  font-size: 0.95rem;
+}
+
+.menu-item-desc {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .menu-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .menu-tabs {
+    gap: 12px;
+  }
+
+  .menu-tab {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+}
 </style>
 </head>
 <body>
@@ -472,10 +597,276 @@ footer {
 
     <div class="text-center" style="margin-top: 48px;">
       <h2 class="section-title" style="margin-bottom: 16px;">Our <em>Menu</em></h2>
-      <p style="color: var(--muted); margin-bottom: 24px; font-size: 18px; line-height: 1.8;">Our menu features daily specials and seasonal favorites. From classic breakfast to homemade pies, there's something for everyone.</p>
+      <p style="color: var(--muted); margin-bottom: 36px; font-size: 18px; line-height: 1.8;">Classic breakfast, homemade sandwiches, and made-from-scratch favorites. Daily specials at the register.</p>
     </div>
 
-    <img src="images/menu.jpg" alt="Missy's Arcade Menu" style="width: 100%; max-width: 800px; display: block; margin: 0 auto; border: 1px solid var(--border); box-shadow: 0 10px 40px rgba(232,117,138,0.4), 0 0 30px rgba(212,168,67,0.3); border-radius: 8px;" class="reveal">
+    <!-- MENU TABS -->
+    <div class="menu-container reveal">
+      <div class="menu-tabs">
+        <button class="menu-tab active" onclick="switchMenu(event, 'breakfast')">
+          <span>🌅</span> Breakfast
+        </button>
+        <button class="menu-tab" onclick="switchMenu(event, 'lunch')">
+          <span>🍽️</span> Lunch
+        </button>
+      </div>
+
+      <!-- BREAKFAST MENU -->
+      <div id="breakfast" class="menu-content active">
+        <div class="menu-grid">
+          <div class="menu-section">
+            <h3 class="menu-section-title">Pancakes & Waffles</h3>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">Classic Pancakes</span>
+                <span class="menu-item-price">$6.95</span>
+              </div>
+              <p class="menu-item-desc">Fluffy buttermilk pancakes served with butter and syrup</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">Blueberry Pancakes</span>
+                <span class="menu-item-price">$7.25</span>
+              </div>
+              <p class="menu-item-desc">Fresh blueberries mixed into our signature batter</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">Chocolate Chip Pancakes</span>
+                <span class="menu-item-price">$7.25</span>
+              </div>
+              <p class="menu-item-desc">Loaded with rich chocolate chips, pure indulgence</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">French Toast</span>
+                <span class="menu-item-price">$7.95</span>
+              </div>
+              <p class="menu-item-desc">Thick-cut bread dipped in egg batter, golden and crispy</p>
+            </div>
+          </div>
+
+          <div class="menu-section">
+            <h3 class="menu-section-title">Egg Dishes</h3>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">Eggs & Bacon</span>
+                <span class="menu-item-price">$7.95</span>
+              </div>
+              <p class="menu-item-desc">Your choice of prep, served with bacon and your choice of potatoes</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">Omelettes</span>
+                <span class="menu-item-price">$7.95</span>
+              </div>
+              <p class="menu-item-desc">Ham & cheese • Chipped beef • Mushroom • Spinach & feta</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">Eggs Benedict</span>
+                <span class="menu-item-price">$8.95</span>
+              </div>
+              <p class="menu-item-desc">English muffin topped with ham, poached eggs, and hollandaise sauce</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">Corned Beef Hash</span>
+                <span class="menu-item-price">$6.95</span>
+              </div>
+              <p class="menu-item-desc">Seasoned hash with eggs cooked your way</p>
+            </div>
+          </div>
+
+          <div class="menu-section">
+            <h3 class="menu-section-title">Breakfast Combos</h3>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">Breakfast Combo #1</span>
+                <span class="menu-item-price">$8.95</span>
+              </div>
+              <p class="menu-item-desc">2 pancakes, 2 bacon strips, sausage patty, eggs, and toast</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">Steak & Eggs</span>
+                <span class="menu-item-price">$9.95</span>
+              </div>
+              <p class="menu-item-desc">6 oz sirloin steak with eggs cooked your way and toast</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">Country Fried Steak</span>
+                <span class="menu-item-price">$8.95</span>
+              </div>
+              <p class="menu-item-desc">Tender fried steak with gravy, eggs, and breakfast potatoes</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">Breakfast Burger</span>
+                <span class="menu-item-price">$8.95</span>
+              </div>
+              <p class="menu-item-desc">Burger topped with a fried egg and grilled onions</p>
+            </div>
+          </div>
+
+          <div class="menu-section">
+            <h3 class="menu-section-title">Sides</h3>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">Breakfast Potatoes</span>
+                <span class="menu-item-price">Add $2.50</span>
+              </div>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">Toast, Bacon, or Sausage</span>
+                <span class="menu-item-price">Add $1.50</span>
+              </div>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">Fruit Cup</span>
+                <span class="menu-item-price">$3.95</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LUNCH MENU -->
+      <div id="lunch" class="menu-content">
+        <div class="menu-grid">
+          <div class="menu-section">
+            <h3 class="menu-section-title">Burgers</h3>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">Classic Burger</span>
+                <span class="menu-item-price">$8.95</span>
+              </div>
+              <p class="menu-item-desc">Juicy patty with lettuce, tomato, pickles, and your choice of cheese</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">Double Cheeseburger</span>
+                <span class="menu-item-price">$9.95</span>
+              </div>
+              <p class="menu-item-desc">Two beef patties stacked with cheese and all the fixings</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">Mushroom Burger</span>
+                <span class="menu-item-price">$9.50</span>
+              </div>
+              <p class="menu-item-desc">Topped with sautéed mushrooms, onions, and melted cheese</p>
+            </div>
+          </div>
+
+          <div class="menu-section">
+            <h3 class="menu-section-title">Sandwiches</h3>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">Grilled Cheese</span>
+                <span class="menu-item-price">$6.95</span>
+              </div>
+              <p class="menu-item-desc">Classic toasted bread with melted cheese</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">Roast Beef Sandwich</span>
+                <span class="menu-item-price">$8.95</span>
+              </div>
+              <p class="menu-item-desc">Tender roast beef with lettuce, tomato, and mayo</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">Turkey Sandwich</span>
+                <span class="menu-item-price">$8.95</span>
+              </div>
+              <p class="menu-item-desc">Fresh turkey breast with lettuce, tomato, and cranberry</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">Tuna Salad Sandwich</span>
+                <span class="menu-item-price">$8.50</span>
+              </div>
+              <p class="menu-item-desc">Homemade tuna salad with lettuce and tomato</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">Ham & Swiss</span>
+                <span class="menu-item-price">$8.50</span>
+              </div>
+              <p class="menu-item-desc">Sliced ham with Swiss cheese, lettuce, and tomato</p>
+            </div>
+          </div>
+
+          <div class="menu-section">
+            <h3 class="menu-section-title">Salads</h3>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">Taco Salad</span>
+                <span class="menu-item-price">$9.00</span>
+              </div>
+              <p class="menu-item-desc">Seasoned ground beef, crispy tortilla, cheese, and ranch dressing</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">Grilled Chicken Salad</span>
+                <span class="menu-item-price">$9.50</span>
+              </div>
+              <p class="menu-item-desc">Fresh mixed greens topped with grilled chicken breast</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">Cobb Salad</span>
+                <span class="menu-item-price">$9.75</span>
+              </div>
+              <p class="menu-item-desc">Turkey, bacon, egg, avocado, and blue cheese crumbles</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">House Salad</span>
+                <span class="menu-item-price">$7.50</span>
+              </div>
+              <p class="menu-item-desc">Mixed greens with your choice of dressing</p>
+            </div>
+          </div>
+
+          <div class="menu-section">
+            <h3 class="menu-section-title">Sides & Add-ons</h3>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">French Fries</span>
+                <span class="menu-item-price">$3.50</span>
+              </div>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">Onion Rings</span>
+                <span class="menu-item-price">$4.00</span>
+              </div>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">Coleslaw</span>
+                <span class="menu-item-price">$2.50</span>
+              </div>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-head">
+                <span class="menu-item-name">Soup of the Day</span>
+                <span class="menu-item-price">$3.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p style="text-align: center; color: var(--muted); font-size: 14px; margin-top: 32px; font-style: italic;">
+        🍰 Homemade pies daily • 🍟 Friday Fish Fry • ⭐ Daily specials posted at register
+      </p>
+    </div>
   </div>
 </section>
 
@@ -744,6 +1135,27 @@ function currentSlide(n) {
 
 // Auto-advance gallery every 5 seconds
 setInterval(nextSlide, 5000);
+
+// Menu tab switching
+function switchMenu(event, menuId) {
+  event.preventDefault();
+
+  // Hide all menu contents
+  document.querySelectorAll('.menu-content').forEach(content => {
+    content.classList.remove('active');
+  });
+
+  // Remove active class from all tabs
+  document.querySelectorAll('.menu-tab').forEach(tab => {
+    tab.classList.remove('active');
+  });
+
+  // Show selected menu
+  document.getElementById(menuId).classList.add('active');
+
+  // Add active class to clicked tab
+  event.currentTarget.classList.add('active');
+}
 </script>
 </body>
 </html>
