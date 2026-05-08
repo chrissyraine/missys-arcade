@@ -56,7 +56,7 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&family=Pacifico&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -100,6 +100,19 @@ button:focus, a:focus, input:focus, select:focus, textarea:focus {
 .skip-link:focus {
   top: 0;
 }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 body {
   background: var(--bg);
   color: var(--text);
@@ -157,11 +170,50 @@ nav {
   position: absolute; inset: 0;
   background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.2) 100%);
 }
-.hero-avatar {
-  position: fixed; right: 40px; bottom: 80px; z-index: 50;
-  width: 350px; height: 350px;
-  background: url('images/avatar.png') center/contain no-repeat;
-  filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5));
+.hero-avatar-container {
+  position: fixed; right: 40px; bottom: 40px; z-index: 50;
+  display: flex; align-items: flex-end; gap: 16px;
+  animation: fadeInUp 0.4s ease-out;
+  animation-delay: 0.8s;
+  animation-fill-mode: both;
+}
+.hero-avatar-image {
+  width: 100px; height: 100px;
+  border-radius: 8px;
+  background: url('images/missy-avatar.png') center/cover no-repeat;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+  flex-shrink: 0;
+}
+.hero-avatar-greeting {
+  font-family: 'Caveat', cursive;
+  font-size: 14px;
+  font-weight: 400;
+  font-style: italic;
+  color: rgba(250,240,230,0.85);
+  line-height: 1.4;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .hero-avatar-container {
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: 32px;
+    right: auto;
+    bottom: auto;
+  }
+  .hero-avatar-image {
+    width: 70px;
+    height: 70px;
+  }
+  .hero-avatar-greeting {
+    font-size: 12px;
+    white-space: normal;
+    text-align: center;
+  }
 }
 .hero-content { position: relative; z-index: 2; padding: 100px 24px; }
 .hero-logo { max-width: 340px; width: 80%; margin: 0 auto 24px; }
@@ -616,7 +668,10 @@ footer {
 <section id="main-content" class="hero">
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
-  <div class="hero-avatar"></div>
+  <div class="hero-avatar-container">
+    <div class="hero-avatar-image"></div>
+    <div class="hero-avatar-greeting">Hi, I'm Missy.<br>Come on in.</div>
+  </div>
   <div class="hero-content">
     <h1 class="hero-tagline">A Titusville Tradition Since 2001</h1>
     <p class="hero-sub">Classic diner fare, homemade pies, and the kind of breakfast that keeps 'em coming back. Right here on Diamond Street.</p>
