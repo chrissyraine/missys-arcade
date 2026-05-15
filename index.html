@@ -644,7 +644,126 @@ footer {
   font-style: italic;
 }
 
+/* ── MENU CAROUSEL ── */
+.menu-carousel-container {
+  margin-top: 48px;
+}
+
+.menu-carousel-wrapper {
+  display: none;
+  animation: fadeIn 0.5s ease;
+}
+
+.menu-carousel-wrapper.active {
+  display: block;
+}
+
+.menu-carousel {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  aspect-ratio: 8.5 / 11;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.menu-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.menu-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: var(--card);
+}
+
+.menu-slide.active {
+  opacity: 1;
+}
+
+.menu-nav {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 10;
+}
+
+.menu-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(250, 240, 230, 0.3);
+  cursor: pointer;
+  transition: background 0.3s;
+  outline-offset: 4px;
+  border: none;
+  padding: 0;
+}
+
+.menu-dot.active {
+  background: var(--pink);
+}
+
+.menu-dot:hover {
+  background: rgba(232, 117, 138, 0.6);
+}
+
+.menu-dot:focus {
+  outline: 2px solid var(--gold);
+}
+
+.menu-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(26, 10, 10, 0.8);
+  border: 1px solid var(--border);
+  color: var(--pink);
+  cursor: pointer;
+  font-size: 20px;
+  transition: all 0.2s;
+  z-index: 10;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.menu-arrow:hover {
+  background: rgba(26, 10, 10, 0.95);
+  color: var(--pink-soft);
+}
+
+.menu-arrow:focus {
+  outline: 2px solid var(--gold);
+  background: rgba(26, 10, 10, 0.95);
+}
+
+.menu-arrow.prev {
+  left: 16px;
+}
+
+.menu-arrow.next {
+  right: 16px;
+}
+
 @media (max-width: 768px) {
+  .menu-carousel {
+    max-width: 100%;
+    aspect-ratio: 8.5 / 11;
+  }
+
   .menu-grid {
     grid-template-columns: 1fr;
     gap: 36px;
@@ -657,6 +776,20 @@ footer {
   .menu-tab {
     padding: 12px 24px;
     font-size: 1rem;
+  }
+
+  .menu-arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  .menu-arrow.prev {
+    left: 12px;
+  }
+
+  .menu-arrow.next {
+    right: 12px;
   }
 }
 </style>
@@ -782,1094 +915,74 @@ footer {
       <p style="color: var(--muted); margin-bottom: 36px; font-size: 18px; line-height: 1.8;">Classic breakfast, homemade sandwiches, and made-from-scratch favorites. Daily specials at the register.</p>
     </div>
 
-    <!-- MENU TABS -->
-    <div class="menu-container reveal">
+    <!-- MENU CAROUSEL -->
+    <div class="menu-carousel-container reveal">
+      <!-- Menu Tabs -->
       <div class="menu-tabs">
-        <button class="menu-tab active" onclick="switchMenu(event, 'breakfast')">
+        <button class="menu-tab active" onclick="switchMenuCarousel(event, 'breakfast')">
           <span>🌅</span> Breakfast
         </button>
-        <button class="menu-tab" onclick="switchMenu(event, 'lunch')">
+        <button class="menu-tab" onclick="switchMenuCarousel(event, 'lunch')">
           <span>🍽️</span> Lunch
         </button>
       </div>
 
-      <!-- BREAKFAST MENU -->
-      <div id="breakfast" class="menu-content active">
-        <div class="menu-grid">
-          <div class="menu-section">
-            <h3 class="menu-section-title">Pancakes</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Regular • Blueberry • Apple Cinnamon • Buckwheat • Chocolate Chip</span>
-                <span class="menu-item-price">1/$2.25 | 2/$3.25 | 3/$4.25</span>
-              </div>
-              <p class="menu-item-desc">Add strawberries and whipped cream for $1.50</p>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">French Toast</span>
-                <span class="menu-item-price">1/$2.25 | 2/$3.25 | 3/$4.25</span>
-              </div>
-              <p class="menu-item-desc">Regular or Texas Style</p>
-            </div>
+      <!-- BREAKFAST CAROUSEL -->
+      <div id="breakfast-carousel" class="menu-carousel-wrapper active">
+        <div class="menu-carousel">
+          <div class="menu-slide active">
+            <img src="images/menu-breakfast-1.png" alt="Breakfast menu page 1" loading="lazy">
           </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Breakfast Sandwiches</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Egg and Cheese</span>
-                <span class="menu-item-price">$2.95</span>
-              </div>
-              <p class="menu-item-desc">Served on English Muffin, Bagel, or Croissant</p>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Egg with Bacon, Ham, or Sausage & Cheese</span>
-                <span class="menu-item-price">$3.95</span>
-              </div>
-              <p class="menu-item-desc">Add your choice of breakfast potatoes for $2.00</p>
-            </div>
+          <div class="menu-slide">
+            <img src="images/menu-breakfast-2.png" alt="Breakfast menu page 2" loading="lazy">
           </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Classics</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Sausage Gravy & Biscuits</span>
-              </div>
-              <p class="menu-item-desc">Small $6.95 • Large $7.95</p>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Chipped Beef Over Toast</span>
-              </div>
-              <p class="menu-item-desc">Small $6.95 • Large $7.95</p>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Corned Beef Hash, 2 Eggs & Toast</span>
-                <span class="menu-item-price">$6.95</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">B.E.L.T.</span>
-                <span class="menu-item-price">$7.95</span>
-              </div>
-              <p class="menu-item-desc">Bacon, Egg, Lettuce, and Tomato on Toast with your choice of breakfast potatoes</p>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Breakfast Pizza</span>
-                <span class="menu-item-price">$7.95</span>
-              </div>
-              <p class="menu-item-desc">Pizza crust topped with sausage gravy, scrambled eggs & shredded cheddar cheese</p>
-            </div>
+          <div class="menu-slide">
+            <img src="images/menu-breakfast-3.png" alt="Breakfast menu page 3" loading="lazy">
           </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Premium Breakfasts</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Hot Sausage Sandwich</span>
-                <span class="menu-item-price">$9.95</span>
-              </div>
-              <p class="menu-item-desc">Hot sausage patty topped with grilled onions, 2 hard eggs, and provolone cheese on a sub bun, served with your choice of breakfast potatoes</p>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Steak & Eggs</span>
-                <span class="menu-item-price">$11.95</span>
-              </div>
-              <p class="menu-item-desc">2 eggs, 6 oz sirloin steak, choice of potato & toast</p>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Country Fried Steak</span>
-                <span class="menu-item-price">$11.95</span>
-              </div>
-              <p class="menu-item-desc">2 eggs, country fried steak, choice of potato & toast</p>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Breakfast Burger</span>
-                <span class="menu-item-price">$9.95</span>
-              </div>
-              <p class="menu-item-desc">Cheeseburger topped with grilled onions & an over hard egg. Served with your choice of breakfast potatoes</p>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Eggs Benedict</span>
-                <span class="menu-item-price">$8.95</span>
-              </div>
-              <p class="menu-item-desc">English muffin topped with ham, basted eggs, hollandaise sauce, and shredded cheddar cheese</p>
-            </div>
+          <div class="menu-slide">
+            <img src="images/menu-breakfast-4.png" alt="Breakfast menu page 4" loading="lazy">
           </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Big Man's Breakfast</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">#1</span>
-                <span class="menu-item-price">$8.95</span>
-              </div>
-              <p class="menu-item-desc">2 Pancakes, 2 pc Bacon, 1 Sausage Patty, 2 Eggs</p>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">#2</span>
-                <span class="menu-item-price">$8.95</span>
-              </div>
-              <p class="menu-item-desc">2 Eggs, 2 pc Bacon, 1 Patty, Breakfast Potatoes, Toast</p>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Egg Combos</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">1 Egg with Toast</span>
-                <span class="menu-item-price">$2.95</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">2 Eggs with Toast</span>
-                <span class="menu-item-price">$3.95</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Egg & Meat Combos (Bacon, Sausage, or Ham with Toast)</span>
-              </div>
-              <p class="menu-item-desc">1 Egg $5.95 • 2 Eggs $6.95</p>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Omelets</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Cheese</span>
-                <span class="menu-item-price">$5.95</span>
-              </div>
-              <p class="menu-item-desc">Served with Toast</p>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Mushroom & Cheese</span>
-                <span class="menu-item-price">$6.95</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Veggie</span>
-                <span class="menu-item-price">$6.95</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Ham & Cheese</span>
-                <span class="menu-item-price">$7.95</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Bacon & Cheese</span>
-                <span class="menu-item-price">$7.95</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Sausage & Cheese</span>
-                <span class="menu-item-price">$7.95</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Western</span>
-                <span class="menu-item-price">$8.50</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Cheeseburger</span>
-                <span class="menu-item-price">$8.95</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Steak</span>
-                <span class="menu-item-price">$9.95</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Chicken, Spinach, Provolone, Tomato</span>
-                <span class="menu-item-price">$8.95</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Everything</span>
-                <span class="menu-item-price">$12.95</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Stack It Up</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Bacon & Onion</span>
-                <span class="menu-item-price">$8.95</span>
-              </div>
-              <p class="menu-item-desc">Homefries topped with choice, 2 over easy eggs & American cheese. Served with toast</p>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Ham & Pepper</span>
-                <span class="menu-item-price">$8.95</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Sausage & Mushroom</span>
-                <span class="menu-item-price">$8.95</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Steak, Onion, Pepper</span>
-                <span class="menu-item-price">$9.95</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Sweets & Cereals</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">LA Cinnamon Bread</span>
-                <span class="menu-item-price">$3.50</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Blueberry Muffin</span>
-                <span class="menu-item-price">$1.95</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Oatmeal</span>
-                <span class="menu-item-price">$2.95</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Cream of Wheat</span>
-                <span class="menu-item-price">$2.95</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Raisin Oatmeal</span>
-                <span class="menu-item-price">$3.50</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Sides</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">1 Egg</span>
-                <span class="menu-item-price">$1.25</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Toast / English Muffin</span>
-                <span class="menu-item-price">$1.75</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Side of Sausage Gravy</span>
-                <span class="menu-item-price">$1.75</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Side of Peppers & Onions</span>
-                <span class="menu-item-price">$1.50</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Hashbrowns / Homefries / Fries</span>
-                <span class="menu-item-price">$2.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Bacon, Ham, or Sausage</span>
-                <span class="menu-item-price">$2.95</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Bagel w/ Cream Cheese</span>
-                <span class="menu-item-price">$2.50</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Beverages</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Coffee / Hot Tea / Hot Chocolate</span>
-                <span class="menu-item-price">$1.75</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Milk</span>
-                <span class="menu-item-price">$2.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Chocolate Milk</span>
-                <span class="menu-item-price">$2.50</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Juice</span>
-                <span class="menu-item-price">$1.25</span>
-              </div>
-            </div>
+          <button class="menu-arrow prev" onclick="prevMenuSlide()" aria-label="Previous menu page">❮</button>
+          <button class="menu-arrow next" onclick="nextMenuSlide()" aria-label="Next menu page">❯</button>
+          <div class="menu-nav">
+            <button class="menu-dot active" onclick="currentMenuSlide(0)" aria-label="Go to breakfast page 1"></button>
+            <button class="menu-dot" onclick="currentMenuSlide(1)" aria-label="Go to breakfast page 2"></button>
+            <button class="menu-dot" onclick="currentMenuSlide(2)" aria-label="Go to breakfast page 3"></button>
+            <button class="menu-dot" onclick="currentMenuSlide(3)" aria-label="Go to breakfast page 4"></button>
           </div>
         </div>
       </div>
 
-      <!-- LUNCH MENU -->
-      <div id="lunch" class="menu-content">
-        <div class="menu-grid">
-          <div class="menu-section">
-            <h3 class="menu-section-title">1/3 lb Angus Burger</h3>
-            <p class="menu-item-desc" style="margin-bottom: 12px;">Served with Chips</p>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Hamburger</span>
-                <span class="menu-item-price">$6.50</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Pizza Burger</span>
-                <span class="menu-item-price">$8.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Mushroom Swiss Burger</span>
-                <span class="menu-item-price">$7.50</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Bacon Cheeseburger</span>
-                <span class="menu-item-price">$8.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Cheeseburger</span>
-                <span class="menu-item-price">$7.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Double Cheeseburger</span>
-                <span class="menu-item-price">$9.00</span>
-              </div>
-            </div>
+      <!-- LUNCH CAROUSEL -->
+      <div id="lunch-carousel" class="menu-carousel-wrapper">
+        <div class="menu-carousel">
+          <div class="menu-slide active">
+            <img src="images/menu-lunch-1.png" alt="Lunch menu page 1" loading="lazy">
           </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Missy's Monster Burger</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">1/2 lb Angus Burger</span>
-                <span class="menu-item-price">$9.95</span>
-              </div>
-              <p class="menu-item-desc">Topped with Lettuce, Tomato, Mayo, and American Cheese. Served with Tater Tots or Fries.</p>
-            </div>
+          <div class="menu-slide">
+            <img src="images/menu-lunch-2.png" alt="Lunch menu page 2" loading="lazy">
           </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Memphis Burger</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">1/2 lb Angus Burger</span>
-                <span class="menu-item-price">$12.95</span>
-              </div>
-              <p class="menu-item-desc">Topped with Bacon, American Cheese, BBQ Sauce & Coleslaw. Served with Tater Tots or Fries.</p>
-            </div>
+          <div class="menu-slide">
+            <img src="images/menu-lunch-3.png" alt="Lunch menu page 3" loading="lazy">
           </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Double Grilled Cheese Burger</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">1/2 lb Burger</span>
-                <span class="menu-item-price">$14.95</span>
-              </div>
-              <p class="menu-item-desc">Nestled between two Grilled Cheese Sandwiches with Lettuce, Tomato, Mayo. Served with Tater Tots or Fries.</p>
-            </div>
+          <div class="menu-slide">
+            <img src="images/menu-lunch-4.png" alt="Lunch menu page 4" loading="lazy">
           </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Bacon Mushroom Swiss Burger</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">1/2 lb Angus Burger</span>
-                <span class="menu-item-price">$12.95</span>
-              </div>
-              <p class="menu-item-desc">Topped with savory Bacon, Mushrooms, and Swiss Cheese. Served with Tater Tots or Fries.</p>
-            </div>
+          <div class="menu-slide">
+            <img src="images/menu-lunch-5.png" alt="Lunch menu page 5" loading="lazy">
           </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Hotdogs</h3>
-            <p class="menu-item-desc" style="margin-bottom: 12px;">1/4 lb • Served with Chips</p>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Hotdog</span>
-                <span class="menu-item-price">$4.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Chili Dog</span>
-                <span class="menu-item-price">$5.00</span>
-              </div>
-            </div>
+          <div class="menu-slide">
+            <img src="images/menu-lunch-6.png" alt="Lunch menu page 6" loading="lazy">
           </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Soup</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-price">$3.00</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Clubs</h3>
-            <p class="menu-item-desc" style="margin-bottom: 12px;">Served with Tater Tots or Fries</p>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Turkey & Bacon</span>
-                <span class="menu-item-price">$10.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Egg Salad & Tuna</span>
-                <span class="menu-item-price">$10.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Ham & Cheese</span>
-                <span class="menu-item-price">$10.00</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Wraps</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Grilled Chicken</span>
-                <span class="menu-item-price">$9.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Buffalo Chicken</span>
-                <span class="menu-item-price">$9.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Turkey & Bacon</span>
-                <span class="menu-item-price">$9.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Steak</span>
-                <span class="menu-item-price">$9.00</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Baskets</h3>
-            <p class="menu-item-desc" style="margin-bottom: 12px;">Served with Fries or Tater Tots and Coleslaw</p>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Chicken</span>
-                <span class="menu-item-price">$9.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Fish</span>
-                <span class="menu-item-price">$9.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Shrimp</span>
-                <span class="menu-item-price">$9.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Fish & Shrimp</span>
-                <span class="menu-item-price">$11.00</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Hot Sandwiches</h3>
-            <p class="menu-item-desc" style="margin-bottom: 12px;">Served with Fries, Tater Tots, or Mashed Potatoes</p>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Meatloaf</span>
-                <span class="menu-item-price">$10.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Turkey</span>
-                <span class="menu-item-price">$10.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Roast Beef</span>
-                <span class="menu-item-price">$10.00</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Grilled Cheese</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Grilled Cheese</span>
-                <span class="menu-item-price">$5.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Three Cheese Grilled Cheese</span>
-                <span class="menu-item-price">$6.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Grilled Ham & Cheese</span>
-                <span class="menu-item-price">$7.95</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Chicken Parmesan Grilled Cheese</span>
-                <span class="menu-item-price">$8.95</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Add Tater Tots or Fries</span>
-                <span class="menu-item-price">$2.00</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Hot Sausage Sandwich</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Italian Sausage Patty</span>
-                <span class="menu-item-price">$9.95</span>
-              </div>
-              <p class="menu-item-desc">Topped with Green Peppers, Onions & Provolone Cheese on an Italian Sub Roll. Served with Fries or Tater Tots.</p>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Buffalo Chicken Melt</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Breakaway Chicken</span>
-                <span class="menu-item-price">$11.95</span>
-              </div>
-              <p class="menu-item-desc">Seasoned with Buffalo Sauce with Provolone on Grilled Marble Rye. Served with Fries or Tater Tots.</p>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Hot Sicilian Sub</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-price">$10.95</span>
-              </div>
-              <p class="menu-item-desc">Ham, Bacon, Pepperoni & Provolone Cheese with Lettuce, Tomato & Mayo. Served with Fries or Tater Tots.</p>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Big B.L.T.</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-price">$9.95</span>
-              </div>
-              <p class="menu-item-desc">5 pieces of Bacon with Lettuce, Tomato & Mayo on your choice of bread. Served with Fries or Tater Tots.</p>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Reuben</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-price">$11.95</span>
-              </div>
-              <p class="menu-item-desc">Corned Beef, Sauerkraut, Swiss Cheese & 1000 Island Dressing on Grilled Marble Rye. Served with Fries or Tater Tots.</p>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Horseradish Steak Sandwich</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-price">$7.95</span>
-              </div>
-              <p class="menu-item-desc">Grilled Onions, Breakaway Steak, Provolone Cheese, Tomato, Lettuce & Horsey Sauce on Toasted Marble Rye. Served with Fries or Tater Tots.</p>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Ultimate Grilled or Crispy Chicken Sandwich</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-price">$11.95</span>
-              </div>
-              <p class="menu-item-desc">Chicken topped with Bacon, Provolone & American Cheese, Lettuce & Tomato. Served with Fries or Tater Tots.</p>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Grilled Cheese Bacon & Tomato Sandwich</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-price">$9.95</span>
-              </div>
-              <p class="menu-item-desc">Grilled Cheese with Bacon and Tomato. Served with Fries or Tater Tots.</p>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Grilled Ham, 3 Cheese & Dill Pickle Sandwich</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-price">$9.95</span>
-              </div>
-              <p class="menu-item-desc">Texas Bread with American, Provolone, Swiss, Ham and Dill Pickles. Served with Fries or Tater Tots.</p>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Melts</h3>
-            <p class="menu-item-desc" style="margin-bottom: 12px;">Served with Chips</p>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Tuna Melt</span>
-                <span class="menu-item-price">$7.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Turkey Bacon Melt</span>
-                <span class="menu-item-price">$8.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Philly Cheese Steak</span>
-                <span class="menu-item-price">$9.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Patty Melt</span>
-                <span class="menu-item-price">$8.50</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Chicken Sandwiches</h3>
-            <p class="menu-item-desc" style="margin-bottom: 12px;">Topped with Lettuce, Tomato & Mayo</p>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Grilled Chicken</span>
-                <span class="menu-item-price">$7.50</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Chicken Patty</span>
-                <span class="menu-item-price">$7.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Buffalo Chicken Patty</span>
-                <span class="menu-item-price">$8.00</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Wedgies</h3>
-            <p class="menu-item-desc" style="margin-bottom: 12px;">Lettuce, Tomato, Onion & Italian Dressing • $9.95 each</p>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Ham & Swiss</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Buffalo Chicken & Provolone</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Steak & Provolone</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Turkey Bacon & Swiss</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">"Big" Chicken Meals</h3>
-            <p class="menu-item-desc" style="margin-bottom: 12px;">Plate-sized chicken patty. Choice of side: Coleslaw, Cottage Cheese, or Applesauce.</p>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Salad</span>
-                <span class="menu-item-price">$8.95</span>
-              </div>
-              <p class="menu-item-desc">Chicken patty with your choice of dressing</p>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Pizza</span>
-                <span class="menu-item-price">$9.95</span>
-              </div>
-              <p class="menu-item-desc">Pizza sauce, provolone cheese, and pepperoni</p>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Dinner</span>
-                <span class="menu-item-price">$9.95</span>
-              </div>
-              <p class="menu-item-desc">Mashed potatoes, corn, gravy, and shredded cheese</p>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Cordon Bleu</span>
-                <span class="menu-item-price">$9.95</span>
-              </div>
-              <p class="menu-item-desc">Ham and Swiss cheese, Dijon mustard</p>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Salads</h3>
-            <p class="menu-item-desc" style="margin-bottom: 12px;">Add Fries for $1.00</p>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Grilled Chicken</span>
-                <span class="menu-item-price">$9.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Chef</span>
-                <span class="menu-item-price">$9.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Buffalo Chicken</span>
-                <span class="menu-item-price">$9.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Tossed</span>
-                <span class="menu-item-price">$5.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Steak</span>
-                <span class="menu-item-price">$9.00</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Lite Plates</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">#1</span>
-                <span class="menu-item-price">$9.00</span>
-              </div>
-              <p class="menu-item-desc">Hamburger Patty, lettuce, cottage cheese, tomato, hard boiled egg, club crackers</p>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">#2</span>
-                <span class="menu-item-price">$9.00</span>
-              </div>
-              <p class="menu-item-desc">Tuna Salad, lettuce, peaches, cottage cheese, club crackers</p>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">#3</span>
-                <span class="menu-item-price">$9.00</span>
-              </div>
-              <p class="menu-item-desc">Chicken Salad, lettuce, peaches, cottage cheese, club crackers</p>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Soup and Half a Sandwich</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-price">$7.00</span>
-              </div>
-              <p class="menu-item-desc">Tuna Salad • Egg Salad • Ham Salad • Chicken Salad • Grilled Cheese</p>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Pretzel Roll Sandwiches</h3>
-            <p class="menu-item-desc" style="margin-bottom: 12px;">Come with Lettuce, Tomato, and are served with Chips</p>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Tuna Salad</span>
-                <span class="menu-item-price">$6.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Ham & Swiss</span>
-                <span class="menu-item-price">$8.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Ham Salad</span>
-                <span class="menu-item-price">$7.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Chicken Salad</span>
-                <span class="menu-item-price">$7.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Egg Salad</span>
-                <span class="menu-item-price">$6.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Turkey & Swiss</span>
-                <span class="menu-item-price">$8.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Add Tater Tots or Fries</span>
-                <span class="menu-item-price">$2.00</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Kiddy Plates</h3>
-            <p class="menu-item-desc" style="margin-bottom: 12px;">12 & Under • Served with Fries • $5.00 each</p>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Hotdog</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Grilled Cheese</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Chicken Strip</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Tasty Flatbreads</h3>
-            <p class="menu-item-desc" style="margin-bottom: 12px;">Your choice on a delicious crust!</p>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Reuben</span>
-                <span class="menu-item-price">$9.95</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Philly Steak</span>
-                <span class="menu-item-price">$9.95</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Buffalo Chicken</span>
-                <span class="menu-item-price">$8.95</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">BBQ Bacon Chicken</span>
-                <span class="menu-item-price">$8.95</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Sides</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Coleslaw / Cottage Cheese / Applesauce</span>
-                <span class="menu-item-price">$2.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Macaroni & Cheese Bites (10)</span>
-                <span class="menu-item-price">$4.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Cheese Sticks (4)</span>
-                <span class="menu-item-price">$4.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Onion Rings</span>
-                <span class="menu-item-price">$4.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">French Fries or Tater Tots</span>
-                <span class="menu-item-price">$2.00</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Desserts</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Homemade Pie</span>
-                <span class="menu-item-price">$3.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Homemade Pie Almode</span>
-                <span class="menu-item-price">$5.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Strawberry Shortcake</span>
-                <span class="menu-item-price">$5.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">LA Cinnamon Bread Amode</span>
-                <span class="menu-item-price">$5.00</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-section">
-            <h3 class="menu-section-title">Beverages</h3>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Iced Tea / Raspberry Tea</span>
-                <span class="menu-item-price">$2.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Milk</span>
-                <span class="menu-item-price">$2.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Coffee / Hot Tea / Hot Chocolate</span>
-                <span class="menu-item-price">$2.00</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Chocolate Milk</span>
-                <span class="menu-item-price">$2.50</span>
-              </div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-head">
-                <span class="menu-item-name">Fountain Pop</span>
-                <span class="menu-item-price">$2.00</span>
-              </div>
-            </div>
+          <button class="menu-arrow prev" onclick="prevMenuSlide()" aria-label="Previous menu page">❮</button>
+          <button class="menu-arrow next" onclick="nextMenuSlide()" aria-label="Next menu page">❯</button>
+          <div class="menu-nav">
+            <button class="menu-dot active" onclick="currentMenuSlide(0)" aria-label="Go to lunch page 1"></button>
+            <button class="menu-dot" onclick="currentMenuSlide(1)" aria-label="Go to lunch page 2"></button>
+            <button class="menu-dot" onclick="currentMenuSlide(2)" aria-label="Go to lunch page 3"></button>
+            <button class="menu-dot" onclick="currentMenuSlide(3)" aria-label="Go to lunch page 4"></button>
+            <button class="menu-dot" onclick="currentMenuSlide(4)" aria-label="Go to lunch page 5"></button>
+            <button class="menu-dot" onclick="currentMenuSlide(5)" aria-label="Go to lunch page 6"></button>
           </div>
         </div>
       </div>
@@ -2176,6 +1289,76 @@ function switchMenu(event, menuId) {
 
   // Add active class to clicked tab
   event.currentTarget.classList.add('active');
+}
+
+// Menu carousel state for each carousel type
+const menuCarouselState = {
+  breakfast: { currentIndex: 0, totalSlides: 4 },
+  lunch: { currentIndex: 0, totalSlides: 6 }
+};
+
+let currentMenuType = 'breakfast'; // Track which carousel is active
+
+function showMenuSlide(carouselId, slideIndex) {
+  const carousel = document.getElementById(carouselId);
+  if (!carousel) return;
+
+  const slides = carousel.querySelectorAll('.menu-slide');
+  const dots = carousel.querySelectorAll('.menu-dot');
+
+  slides.forEach(slide => slide.classList.remove('active'));
+  dots.forEach(dot => dot.classList.remove('active'));
+
+  if (slides[slideIndex]) {
+    slides[slideIndex].classList.add('active');
+  }
+  if (dots[slideIndex]) {
+    dots[slideIndex].classList.add('active');
+  }
+}
+
+function switchMenuCarousel(event, menuId) {
+  event.preventDefault();
+
+  // Hide all carousel wrappers
+  document.querySelectorAll('.menu-carousel-wrapper').forEach(wrapper => {
+    wrapper.classList.remove('active');
+  });
+
+  // Remove active class from all tabs
+  document.querySelectorAll('.menu-tab').forEach(tab => {
+    tab.classList.remove('active');
+  });
+
+  // Show selected carousel
+  const selectedCarousel = document.getElementById(menuId + '-carousel');
+  if (selectedCarousel) {
+    selectedCarousel.classList.add('active');
+  }
+
+  // Add active class to clicked tab
+  event.currentTarget.classList.add('active');
+
+  // Update current menu type
+  currentMenuType = menuId;
+}
+
+function nextMenuSlide() {
+  const state = menuCarouselState[currentMenuType];
+  state.currentIndex = (state.currentIndex + 1) % state.totalSlides;
+  showMenuSlide(currentMenuType + '-carousel', state.currentIndex);
+}
+
+function prevMenuSlide() {
+  const state = menuCarouselState[currentMenuType];
+  state.currentIndex = (state.currentIndex - 1 + state.totalSlides) % state.totalSlides;
+  showMenuSlide(currentMenuType + '-carousel', state.currentIndex);
+}
+
+function currentMenuSlide(n) {
+  const state = menuCarouselState[currentMenuType];
+  state.currentIndex = n;
+  showMenuSlide(currentMenuType + '-carousel', state.currentIndex);
 }
 </script>
 </body>
